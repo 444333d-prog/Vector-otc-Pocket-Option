@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Cairo", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-bento-bg: #070A13;
+  --color-bento-card: #0D1322;
+  --color-bento-green: #00E676; /* Vivid Neon Cyber Green (CALL / Wins) */
+  --color-bento-blue: #0088FF;  /* Pocket Option Electric Blue (Brand / High-Tech) */
+  --color-bento-red: #FF3366;   /* Laser Crimson Red (PUT / Losses) */
+  --color-bento-fusion: #0088FF;
+  --color-bento-border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #070A13;
+  color: #ffffff;
+  direction: rtl; /* Set default text direction to Right-to-Left for Arabic */
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(0, 136, 255, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 25%, rgba(0, 230, 118, 0.06) 0%, transparent 35%),
+    radial-gradient(circle at 50% 85%, rgba(255, 51, 102, 0.06) 0%, transparent 40%);
+  background-attachment: fixed;
+}
+
+/* Tri-Color Aurora Shimmer */
+@keyframes triAuroraGlow {
+  0% {
+    filter: drop-shadow(0 0 15px rgba(0, 136, 255, 0.35)) drop-shadow(0 0 25px rgba(0, 230, 118, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.35)) drop-shadow(0 0 25px rgba(255, 51, 102, 0.25));
+  }
+  100% {
+    filter: drop-shadow(0 0 15px rgba(255, 51, 102, 0.35)) drop-shadow(0 0 25px rgba(0, 136, 255, 0.25));
+  }
+}
+
+.tri-aurora-glow {
+  animation: triAuroraGlow 8s infinite alternate ease-in-out;
+}
+
+/* Custom continuous shimmer for glowing bento items */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.18; filter: blur(35px); }
+  50% { opacity: 0.35; filter: blur(50px); }
+}
+
+.bento-glow {
+  animation: pulseGlow 6s infinite ease-in-out;
+}
+
