@@ -25,11 +25,11 @@ export default function SignalsStats({
       <div className="bg-bento-card border border-white/10 rounded-2xl p-4 md:p-5 flex items-center justify-between shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-24 h-24 bg-bento-green/5 rounded-full blur-2xl pointer-events-none"></div>
         <div className="z-10">
-          <span className="text-xs text-[#999999] block mb-1">نسبة النجاح الكلية</span>
+          <span className="text-sm text-[#999999] block mb-1">نسبة النجاح الكلية</span>
           <span className={`text-lg md:text-xl font-black font-mono ${winRate >= 75 ? "text-bento-green" : "text-amber-400"}`}>
             {total > 0 ? `${winRate}%` : "—"}
           </span>
-          <span className="text-[10px] text-[#999999] block mt-0.5">
+          <span className="text-sm text-[#999999] block mt-0.5">
             النسبة المستهدفة: 75% - 100%
           </span>
         </div>
@@ -42,13 +42,13 @@ export default function SignalsStats({
       <div className="bg-bento-card border border-white/10 rounded-2xl p-4 md:p-5 flex items-center justify-between shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-24 h-24 bg-bento-red/5 rounded-full blur-2xl pointer-events-none"></div>
         <div className="z-10">
-          <span className="text-xs text-[#999999] block mb-1">نسبة الربح والخسارة</span>
+          <span className="text-sm text-[#999999] block mb-1">نسبة الربح والخسارة</span>
           <div className="flex items-center gap-1.5 font-bold font-mono">
             <span className="text-bento-green text-sm md:text-base">{wins} ربح</span>
-            <span className="text-[#999999] text-xs">/</span>
+            <span className="text-[#999999] text-sm">/</span>
             <span className="text-bento-red text-sm md:text-base">{losses} خسارة</span>
           </div>
-          <span className="text-[10px] text-[#999999] block mt-0.5">
+          <span className="text-sm text-[#999999] block mt-0.5">
             مجموع الصفقات: {total}
           </span>
         </div>
@@ -62,11 +62,11 @@ export default function SignalsStats({
       <div className="bg-bento-card border border-white/10 rounded-2xl p-4 md:p-5 flex items-center justify-between shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl pointer-events-none"></div>
         <div className="z-10">
-          <span className="text-xs text-[#999999] block mb-1">متوسط جودة الإشارات</span>
+          <span className="text-sm text-[#999999] block mb-1">متوسط جودة الإشارات</span>
           <span className="text-lg md:text-xl font-black text-blue-400 font-mono">
             {avgStrength > 0 ? `${avgStrength}%` : "—"}
           </span>
-          <span className="text-[10px] text-[#999999] block mt-0.5">
+          <span className="text-sm text-[#999999] block mt-0.5">
             تصنيف الجلسة: ممتازة جداً
           </span>
         </div>

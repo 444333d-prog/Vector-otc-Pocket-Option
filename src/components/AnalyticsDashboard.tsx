@@ -100,11 +100,11 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-[#0a0a0a] border border-white/10 rounded-xl p-3 shadow-2xl text-xs space-y-1 font-sans">
+        <div className="bg-[#0a0a0a] border border-white/10 rounded-xl p-3 shadow-2xl text-sm space-y-1 font-sans">
           <div className="font-bold text-white flex items-center gap-2">
             <span>الصفقة رقم {data.index}</span>
             <span
-              className={`px-2 py-0.5 rounded text-[10px] ${
+              className={`px-2 py-0.5 rounded text-sm ${
                 data.status === "ربح"
                   ? "bg-blue-500/20 text-bento-green border border-bento-green/30"
                   : "bg-rose-500/20 text-bento-red border border-bento-red/30"
@@ -118,7 +118,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
           <div className="text-amber-400 font-mono">
             نسبة النجاح التراكمية: {data.winRate}%
           </div>
-          <div className="text-[10px] text-slate-500">الوقت: {data.time}</div>
+          <div className="text-sm text-slate-500">الوقت: {data.time}</div>
         </div>
       );
     }
@@ -129,7 +129,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-[#0a0a0a] border border-white/10 rounded-xl p-3 shadow-2xl text-xs space-y-1 font-sans">
+        <div className="bg-[#0a0a0a] border border-white/10 rounded-xl p-3 shadow-2xl text-sm space-y-1 font-sans">
           <div className="font-bold text-white mb-1">{data.name}</div>
           <div className="text-bento-green flex items-center justify-between gap-4">
             <span>ربح:</span>
@@ -164,7 +164,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
             <BarChart3 className="w-5 h-5 text-bento-green" />
             لوحة البيانات التحليلية وأداء البوت (Win Rate Analytics)
           </h2>
-          <p className="text-xs text-[#999999] mt-0.5">
+          <p className="text-sm text-[#999999] mt-0.5">
             رسم بياني تفاعلي يحلل دقة الإشارات ونسب النجاح بناءً على السجل التراكمي
           </p>
         </div>
@@ -173,7 +173,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         <div className="flex items-center p-1 bg-[#050505] rounded-xl border border-white/10 self-start sm:self-auto">
           <button
             onClick={() => setActiveTab("trend")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold transition-all cursor-pointer ${
               activeTab === "trend"
                 ? "bg-bento-green text-[#050505] shadow-lg shadow-bento-green/20"
                 : "text-[#999999] hover:text-white"
@@ -185,7 +185,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
 
           <button
             onClick={() => setActiveTab("assets")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold transition-all cursor-pointer ${
               activeTab === "assets"
                 ? "bg-bento-green text-[#050505] shadow-lg shadow-bento-green/20"
                 : "text-[#999999] hover:text-white"
@@ -197,7 +197,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
 
           <button
             onClick={() => setActiveTab("ratio")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold transition-all cursor-pointer ${
               activeTab === "ratio"
                 ? "bg-bento-green text-[#050505] shadow-lg shadow-bento-green/20"
                 : "text-[#999999] hover:text-white"
@@ -213,7 +213,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 relative z-10">
         <div className="bg-[#050505] border border-white/5 rounded-xl p-3 flex items-center justify-between">
           <div>
-            <span className="text-[10px] text-[#999999] block">الصفقات المكتملة</span>
+            <span className="text-sm text-[#999999] block">الصفقات المكتملة</span>
             <span className="text-base font-black text-white font-mono">{totalCompleted}</span>
           </div>
           <Activity className="w-4 h-4 text-blue-400" />
@@ -221,7 +221,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
 
         <div className="bg-[#050505] border border-white/5 rounded-xl p-3 flex items-center justify-between">
           <div>
-            <span className="text-[10px] text-[#999999] block">الصفقات الناجحة</span>
+            <span className="text-sm text-[#999999] block">الصفقات الناجحة</span>
             <span className="text-base font-black text-bento-green font-mono">{wins}</span>
           </div>
           <CheckCircle2 className="w-4 h-4 text-bento-green" />
@@ -229,7 +229,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
 
         <div className="bg-[#050505] border border-white/5 rounded-xl p-3 flex items-center justify-between">
           <div>
-            <span className="text-[10px] text-[#999999] block">الصفقات الخاسرة</span>
+            <span className="text-sm text-[#999999] block">الصفقات الخاسرة</span>
             <span className="text-base font-black text-bento-red font-mono">{losses}</span>
           </div>
           <XCircle className="w-4 h-4 text-bento-red" />
@@ -237,7 +237,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
 
         <div className="bg-[#050505] border border-white/5 rounded-xl p-3 flex items-center justify-between">
           <div>
-            <span className="text-[10px] text-[#999999] block">نسبة النجاح الحالية</span>
+            <span className="text-sm text-[#999999] block">نسبة النجاح الحالية</span>
             <span
               className={`text-base font-black font-mono ${
                 currentWinRate >= 75 ? "text-bento-green" : "text-amber-400"
@@ -261,7 +261,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
               <h3 className="text-sm font-bold text-slate-200">
                 في انتظار اكتمال الصفقات الأولى لرسم البيان
               </h3>
-              <p className="text-xs text-[#999999] max-w-md mt-1">
+              <p className="text-sm text-[#999999] max-w-md mt-1">
                 قم بتشغيل البوت التلقائي لمراقبة تحليلات دقة الإشارات ونسبة النجاح (Win Rate) لحظة بلحظة عبر الرسم البياني.
               </p>
             </div>
@@ -376,19 +376,19 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full bg-bento-green"></span>
-                    <span className="text-xs text-slate-200">
+                    <span className="text-sm text-slate-200">
                       الصفقات الناجحة: <strong className="text-bento-green font-mono">{wins}</strong> (
                       {totalCompleted > 0 ? Math.round((wins / totalCompleted) * 100) : 0}%)
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full bg-bento-red"></span>
-                    <span className="text-xs text-slate-200">
+                    <span className="text-sm text-slate-200">
                       الصفقات الخاسرة: <strong className="text-bento-red font-mono">{losses}</strong> (
                       {totalCompleted > 0 ? Math.round((losses / totalCompleted) * 100) : 0}%)
                     </span>
                   </div>
-                  <div className="p-3 bg-[#050505] rounded-xl border border-white/5 text-[11px] text-[#999999] max-w-xs">
+                  <div className="p-3 bg-[#050505] rounded-xl border border-white/5 text-xs text-[#999999] max-w-xs">
                     معدل الأداء العام: {currentWinRate >= 75 ? "أداء مرتفع وممتاز يتجاوز المعيار المطلوب." : "أداء مستقر جاري تحسين جودة مدخلات الذكاء الاصطناعي."}
                   </div>
                 </div>

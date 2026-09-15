@@ -39,6 +39,7 @@ import {
   LineChart,
   Coins,
   Droplet,
+  Users,
 } from "lucide-react";
 
 // Predefined available assets (Forex, OTC & Commodities)
@@ -283,6 +284,22 @@ export default function App() {
 
   // Show asset selector dropdown / modal state
   const [isAssetPickerOpen, setIsAssetPickerOpen] = useState<boolean>(false);
+
+  const [activeUsers, setActiveUsers] = useState<number>(312); // Simulated active users count
+
+  // Simulate active users count fluctuation
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setActiveUsers((prev) => {
+        const change = Math.floor(Math.random() * 5) - 2; // -2 to +2
+        let next = prev + change;
+        if (next < 150) next = 150;
+        if (next > 1200) next = 1200;
+        return next;
+      });
+    }, 4000);
+    return () => clearInterval(intervalId);
+  }, []);
 
   const [selectedTimeframe, setSelectedTimeframe] = useState<Timeframe>("5s");
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
@@ -784,8 +801,8 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#050505] text-white flex flex-col justify-between selection:bg-bento-green/30 font-sans" id="deriv-signals-root">
       {/* Top Navbar */}
-      <header className="border-b border-white/10 bg-bento-card/80 backdrop-blur-md sticky top-0 z-50 px-4 py-4 shadow-2xl">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
+      <header className="border-b border-white/10 bg-bento-card/80 backdrop-blur-md sticky top-0 z-50 px-2 sm:px-6 py-4 shadow-2xl">
+        <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-3">
           {/* Logo & Brand */}
           <div className="flex items-center space-x-3 space-x-reverse">
             <div className="relative flex items-center justify-center w-12 h-12 rounded-xl bg-[#090D1A] border border-cyan-500/30 shadow-lg shadow-cyan-500/20 overflow-hidden group">
@@ -801,11 +818,8 @@ export default function App() {
                 <h1 className="font-extrabold text-white text-sm md:text-base tracking-tight">
                   Vector_OTC Options
                 </h1>
-                <span className="text-[10px] bg-gradient-to-r from-[#0088FF]/25 via-[#00E676]/25 to-[#FF3366]/25 text-white border border-white/20 px-2.5 py-0.5 rounded font-black uppercase tracking-wider shadow-sm">
-                  TRI-COLOR FUSION
-                </span>
               </div>
-              <p className="text-[10px] text-slate-400 mt-0.5">
+              <p className="text-sm text-slate-400 mt-0.5">
                 خوارزمية متقدمة تتعقب النماذج السعرية، وتحلّق في عمق بيانات أسواق الـ OTC (غير الرسمية)
               </p>
             </div>
@@ -822,17 +836,30 @@ export default function App() {
             {/* European Strategy Guide Button */}
             <button
               onClick={() => setIsStrategyGuideOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-bento-green/40 bg-bento-green/10 text-bento-green hover:bg-bento-green/20 text-xs font-bold transition-all duration-300 cursor-pointer active:scale-95 shadow-sm"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-bento-green/40 bg-bento-green/10 text-bento-green hover:bg-bento-green/20 text-sm font-bold transition-all duration-300 cursor-pointer active:scale-95 shadow-sm"
               id="btn-open-strategy-guide"
             >
               <BookOpen className="w-3.5 h-3.5" />
               <span>دليل الاستراتيجية الأوروبية ⚡</span>
             </button>
 
+            {/* Active Users Badge */}
+            <div
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-sm font-bold shadow-sm"
+              title="المستخدمين النشطين حالياً في المنصة"
+            >
+              <div className="relative flex items-center justify-center w-3 h-3">
+                <div className="absolute inset-0 bg-cyan-400 rounded-full animate-ping opacity-75"></div>
+                <div className="relative w-1.5 h-1.5 bg-cyan-400 rounded-full"></div>
+              </div>
+              <Users className="w-3.5 h-3.5" />
+              <span>{activeUsers.toLocaleString()}</span>
+            </div>
+
             {/* Test VIP Golden Bell Sound button */}
             <button
               onClick={() => playSound("vip_signal")}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 hover:border-amber-500/50 text-xs font-bold transition-all duration-300 cursor-pointer active:scale-95 shadow-sm"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 hover:border-amber-500/50 text-sm font-bold transition-all duration-300 cursor-pointer active:scale-95 shadow-sm"
               title="تجربة صوت الرنين الذهبي المخصص لصفقات الاستراتيجية الأوروبية VIP"
               id="btn-test-vip-sound"
             >
@@ -864,9 +891,9 @@ export default function App() {
           <div className="flex items-center gap-2.5 w-full md:w-auto justify-between md:justify-start">
             <div className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full bg-bento-green animate-pulse"></div>
-              <span className="text-xs font-bold text-slate-200">منصة التداول المتصلة (محاكاة وهمية):</span>
+              <span className="text-sm font-bold text-slate-200">اختر منصة التداول</span>
             </div>
-            <span className="text-[10px] bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 px-2 py-0.5 rounded-md font-mono font-bold">
+            <span className="text-sm bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 px-2 py-0.5 rounded-md font-mono font-bold">
               عائد {currentPlatform.payoutRate}%
             </span>
           </div>
@@ -878,7 +905,7 @@ export default function App() {
                 <button
                   key={plat.id}
                   onClick={() => handleSelectPlatform(plat)}
-                  className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer active:scale-95 ${
+                  className={`px-3 py-1.5 rounded-xl border text-sm font-bold transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer active:scale-95 ${
                     isSelected
                       ? "bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow-md shadow-cyan-500/20"
                       : "bg-[#060913] border-white/10 text-slate-400 hover:text-slate-200 hover:border-white/25 hover:bg-white/5"
@@ -909,7 +936,7 @@ export default function App() {
             <h2 className="text-sm font-bold text-slate-200 flex items-center gap-1.5">
               <Grid className="w-4 h-4 text-bento-green" /> اختر أزواج التداول السريعة
             </h2>
-            <span className="text-xs bg-bento-green/10 text-bento-green border border-bento-green/20 px-2 py-0.5 rounded-lg font-bold">
+            <span className="text-sm bg-bento-green/10 text-bento-green border border-bento-green/20 px-2 py-0.5 rounded-lg font-bold">
               {selectedAssets.length} أزواج محددة
             </span>
           </div>
@@ -946,7 +973,7 @@ export default function App() {
                 <button
                   key={asset.id}
                   onClick={() => toggleAssetSelection(asset)}
-                  className={`relative flex items-center gap-2.5 px-3 py-2.5 rounded-xl border text-xs font-bold transition-all cursor-pointer w-full text-right ${
+                  className={`relative flex items-center gap-2.5 px-3 py-2.5 rounded-xl border text-sm font-bold transition-all cursor-pointer w-full text-right ${
                     isSelected
                       ? "bg-bento-green/15 border-bento-green shadow-sm shadow-bento-green/10"
                       : "bg-[#050505] border-white/5 hover:border-white/20 hover:bg-white/5"
@@ -984,13 +1011,13 @@ export default function App() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 relative z-10">
             {/* 1. Timeframe Selection */}
             <div>
-              <label className="text-xs text-[#999999] block mb-1.5 font-medium">الفريم الزمني (Timeframe)</label>
+              <label className="text-sm text-[#999999] block mb-1.5 font-medium">الفريم الزمني (Timeframe)</label>
               <div className="grid grid-cols-5 gap-1 bg-[#050505] p-1 rounded-xl border border-white/10">
                 {(["5s", "15s", "30s", "1m", "5m"] as Timeframe[]).map((tf) => (
                   <button
                     key={tf}
                     onClick={() => handleTimeframeChange(tf)}
-                    className={`py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    className={`py-1.5 rounded-lg text-sm font-bold transition-all cursor-pointer ${
                       selectedTimeframe === tf
                         ? "bg-bento-green text-[#050505] shadow-lg shadow-bento-green/20"
                         : "text-[#999999] hover:text-slate-200 hover:bg-white/5"
@@ -1005,11 +1032,11 @@ export default function App() {
 
             {/* 2. Signal Filtering Strategy */}
             <div>
-              <label className="text-xs text-[#999999] block mb-1.5 font-medium">مستوى فلترة الإشارات</label>
+              <label className="text-sm text-[#999999] block mb-1.5 font-medium">مستوى فلترة الإشارات</label>
               <div className="grid grid-cols-2 gap-1.5 bg-[#050505] p-1 rounded-xl border border-white/10">
                 <button
                   onClick={() => setRiskLevel("all")}
-                  className={`py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  className={`py-1.5 rounded-lg text-sm font-bold transition-all cursor-pointer ${
                     riskLevel === "all" ? "bg-white/10 text-white" : "text-[#999999] hover:text-slate-200"
                   }`}
                   id="risk-btn-all"
@@ -1018,7 +1045,7 @@ export default function App() {
                 </button>
                 <button
                   onClick={() => setRiskLevel("high")}
-                  className={`py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  className={`py-1.5 rounded-lg text-sm font-bold transition-all cursor-pointer ${
                     riskLevel === "high"
                       ? "bg-bento-green text-[#050505] shadow-lg shadow-bento-green/10"
                       : "text-[#999999] hover:text-slate-200"
@@ -1032,11 +1059,11 @@ export default function App() {
 
             {/* 3. Multi-Chart Display Mode Toggle */}
             <div>
-              <label className="text-xs text-[#999999] block mb-1.5 font-medium">نمط عرض الشاشات والرسوم البيانية</label>
+              <label className="text-sm text-[#999999] block mb-1.5 font-medium">نمط عرض الشاشات والرسوم البيانية</label>
               <div className="grid grid-cols-2 gap-1.5 bg-[#050505] p-1 rounded-xl border border-white/10">
                 <button
                   onClick={() => setChartLayout("grid")}
-                  className={`py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                  className={`py-1.5 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                     chartLayout === "grid"
                       ? "bg-bento-green text-[#050505] shadow-lg shadow-bento-green/10"
                       : "text-[#999999] hover:text-slate-200"
@@ -1048,7 +1075,7 @@ export default function App() {
                 </button>
                 <button
                   onClick={() => setChartLayout("single")}
-                  className={`py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                  className={`py-1.5 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                     chartLayout === "single"
                       ? "bg-bento-green text-[#050505] shadow-lg shadow-bento-green/10"
                       : "text-[#999999] hover:text-slate-200"
@@ -1065,8 +1092,8 @@ export default function App() {
           {/* Bot Control Activation Buttons */}
           <div className="mt-5 pt-4 border-t border-white/10 flex flex-col sm:flex-row gap-3 items-center justify-between relative z-10">
             <div className="text-right">
-              <span className="text-xs text-[#999999] block mb-0.5">وضع مولد الإشارات المتزامن</span>
-              <span className={`text-xs font-bold ${isGenerating ? "text-bento-green animate-pulse" : "text-amber-500"}`}>
+              <span className="text-sm text-[#999999] block mb-0.5">وضع مولد الإشارات المتزامن</span>
+              <span className={`text-sm font-bold ${isGenerating ? "text-bento-green animate-pulse" : "text-amber-500"}`}>
                 {isGenerating
                   ? `نشط ومستمر (إرسال ${selectedAssets.length} إشارات متزامنة كل ${selectedTimeframe === "1m" ? "60 ثانية" : selectedTimeframe === "5m" ? "5 دقائق" : selectedTimeframe})`
                   : "متوقف (قم بالتشغيل لبدء البوت على جميع الأزواج المحددة)"}
@@ -1083,7 +1110,7 @@ export default function App() {
                   generateSignal();
                 }}
                 disabled={isGenerating}
-                className={`flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 space-x-reverse px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer ${
+                className={`flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 space-x-reverse px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 cursor-pointer ${
                   isGenerating
                     ? "bg-white/5 text-slate-500 cursor-not-allowed"
                     : "bg-bento-green text-[#050505] hover:bg-bento-green/90 hover:shadow-lg hover:shadow-bento-green/20 active:scale-95"
@@ -1098,7 +1125,7 @@ export default function App() {
               <button
                 onClick={() => setIsGenerating(false)}
                 disabled={!isGenerating}
-                className={`flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 space-x-reverse px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer ${
+                className={`flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 space-x-reverse px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 cursor-pointer ${
                   !isGenerating
                     ? "bg-white/5 text-slate-500 cursor-not-allowed"
                     : "bg-bento-red text-white hover:bg-bento-red/90 hover:shadow-lg hover:shadow-bento-red/20 active:scale-95"
@@ -1114,14 +1141,14 @@ export default function App() {
           {/* Next Signal Countdown Indicator overlay (if running) */}
           {isGenerating && (
             <div className="mt-4 bg-[#050505]/80 p-3 rounded-xl border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 animate-pulse relative z-10">
-              <div className="flex items-center gap-2 text-xs text-slate-300">
+              <div className="flex items-center gap-2 text-sm text-slate-300">
                 <Clock className="w-4 h-4 text-amber-500 flex-shrink-0" />
                 <span>
                   جاري رصد حركة الشموع لـ <strong>{selectedAssets.length} أزواج</strong> (
                   {selectedAssets.map((a) => a.nameAr).join(" • ")}) وإصدار {selectedAssets.length} إشارات متزامنة...
                 </span>
               </div>
-              <span className="text-xs text-slate-200 whitespace-nowrap">
+              <span className="text-sm text-slate-200 whitespace-nowrap">
                 الإشارات القادمة خلال: <strong className="font-mono text-amber-400 text-sm">{secondsToNextSignal}ث</strong>
               </span>
             </div>
@@ -1130,7 +1157,7 @@ export default function App() {
           {/* Telegram Integration Panel */}
           <div className="mt-5 pt-4 border-t border-white/10 relative z-10">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+              <h3 className="text-sm font-bold text-slate-200 flex items-center gap-1.5">
                 <Send className="w-4 h-4 text-[#0088cc]" /> ربط تليجرام (Telegram) لإرسال الإشارات المتعددة
               </h3>
               <label className="relative inline-flex items-center cursor-pointer">
@@ -1147,23 +1174,23 @@ export default function App() {
             {telegramEnabled && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
                 <div>
-                  <label className="text-[10px] text-[#999999] block mb-1">Bot Token</label>
+                  <label className="text-sm text-[#999999] block mb-1">Bot Token</label>
                   <input
                     type="password"
                     value={telegramToken}
                     onChange={(e) => setTelegramToken(e.target.value)}
                     placeholder="1234567890:AAH_..."
-                    className="w-full bg-[#050505] border border-white/10 rounded-lg px-3 py-2 text-xs text-slate-200 focus:border-bento-green focus:outline-none transition-colors"
+                    className="w-full bg-[#050505] border border-white/10 rounded-lg px-3 py-2 text-sm text-slate-200 focus:border-bento-green focus:outline-none transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] text-[#999999] block mb-1">Chat ID</label>
+                  <label className="text-sm text-[#999999] block mb-1">Chat ID</label>
                   <input
                     type="text"
                     value={telegramChatId}
                     onChange={(e) => setTelegramChatId(e.target.value)}
                     placeholder="-1001234567890"
-                    className="w-full bg-[#050505] border border-white/10 rounded-lg px-3 py-2 text-xs text-slate-200 focus:border-bento-green focus:outline-none transition-colors"
+                    className="w-full bg-[#050505] border border-white/10 rounded-lg px-3 py-2 text-sm text-slate-200 focus:border-bento-green focus:outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -1176,8 +1203,8 @@ export default function App() {
           <SignalsStats completedHistory={completedHistory} virtualBalance={virtualBalance} />
         )}
 
-        {/* Real-time Trading Charts */}
-        <div className="w-full space-y-4">
+        {/* Real-time Trading Charts - Hidden from UI but running in background */}
+        <div className="hidden w-full space-y-4">
           {/* Trading Canvas Real-time Charts Display */}
             {chartLayout === "grid" && selectedAssets.length > 1 ? (
               <div className={`grid grid-cols-1 ${selectedAssets.length === 2 ? "md:grid-cols-2" : selectedAssets.length >= 3 ? "md:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-2"} gap-4`} id="multi-chart-grid">
@@ -1222,7 +1249,7 @@ export default function App() {
         {/* Bottom Educational Disclaimer Banner */}
         <div className="bg-bento-card/60 border border-white/10 p-4 rounded-2xl flex items-start gap-3">
           <Info className="w-5 h-5 text-bento-green flex-shrink-0 mt-0.5" />
-          <div className="text-xs text-[#999999] leading-relaxed">
+          <div className="text-sm text-[#999999] leading-relaxed">
             <h4 className="font-bold text-slate-300 mb-1">إخلاء مسؤولية هامة عن تداول الخيارات الثنائية (Pocket Option & Deriv Higher/Lower):</h4>
             <p>
               هذا الروبوت يعتمد الاستراتيجية الأوروبية الناجحة المعتمدة على التوافق الثلاثي (EMA Ribbon 8/21/55 + Stochastic Oscillator 5/3/3 + Bollinger Bands)
@@ -1239,10 +1266,9 @@ export default function App() {
       />
 
       {/* Footer copyright */}
-      <footer className="border-t border-white/10 bg-bento-card py-5 text-center text-xs text-[#999999]">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
-          <span>روبوت الاستراتيجية الأوروبية للخيارات الثنائية • Pocket Option & Deriv © {new Date().getFullYear()} - جميع الحقوق محفوظة</span>
-          <span className="font-mono text-[10px] text-slate-500">European Triple Confluence Engine Active • 94%-100% Target</span>
+      <footer className="border-t border-white/10 bg-bento-card py-5 text-center text-sm text-[#999999]">
+        <div className="max-w-7xl mx-auto px-4 flex justify-center items-center">
+          <span>💡 وضوح بلا تعقيد: خلف الكواليس معادلات برمجية بالغة التعقيد، لكن أمام عينيك: إشارة واضحة، في الوقت المناسب، وبقرار ثقة.</span>
         </div>
       </footer>
     </div>

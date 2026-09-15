@@ -47,7 +47,7 @@ export default function EuropeanStrategyGuide({ isOpen, onClose }: EuropeanStrat
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-lg font-black text-white">الاستراتيجية الأوروبية الناجحة لـ Pocket Option</h2>
-                <span className="text-[10px] bg-bento-green/20 text-bento-green border border-bento-green/40 px-2 py-0.5 rounded-full font-extrabold">
+                <span className="text-xs bg-bento-green/20 text-bento-green border border-bento-green/40 px-2 py-0.5 rounded-full font-extrabold">
                   Win Rate 96%+
                 </span>
               </div>
@@ -267,17 +267,17 @@ export default function EuropeanStrategyGuide({ isOpen, onClose }: EuropeanStrat
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
                 <div className="bg-[#161616] p-4 rounded-xl border border-white/10">
-                  <span className="text-[11px] text-slate-400 block mb-1">نسبة المخاطرة لكل صفقة</span>
+                  <span className="text-xs text-slate-400 block mb-1">نسبة المخاطرة لكل صفقة</span>
                   <strong className="text-base text-bento-green font-mono font-bold">1% - 2%</strong>
                 </div>
 
                 <div className="bg-[#161616] p-4 rounded-xl border border-white/10">
-                  <span className="text-[11px] text-slate-400 block mb-1">الهدف اليومي الموصى به</span>
+                  <span className="text-xs text-slate-400 block mb-1">الهدف اليومي الموصى به</span>
                   <strong className="text-base text-sky-400 font-mono font-bold">+5% إلى +10%</strong>
                 </div>
 
                 <div className="bg-[#161616] p-4 rounded-xl border border-white/10">
-                  <span className="text-[11px] text-slate-400 block mb-1">وقف الخسارة اليومي (Stop Loss)</span>
+                  <span className="text-xs text-slate-400 block mb-1">وقف الخسارة اليومي (Stop Loss)</span>
                   <strong className="text-base text-bento-red font-mono font-bold">-4% كحد أقصى</strong>
                 </div>
               </div>

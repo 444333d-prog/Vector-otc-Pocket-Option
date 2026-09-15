@@ -40,16 +40,16 @@ export default function SignalsFeed({
         <div className="flex justify-between items-center mb-3 border-b border-white/10 pb-2.5">
           <div className="flex items-center space-x-2 space-x-reverse">
             <div className="w-2.5 h-2.5 bg-bento-green rounded-full animate-ping"></div>
-            <h3 className="font-bold text-white text-sm">مربع صفقات الإشارات والمنشورات</h3>
+            <h3 className="font-bold text-white text-sm">الاشارات النشطة الحالية</h3>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs bg-[#050505]/50 text-[#999999] px-2.5 py-1 rounded-lg border border-white/5 font-mono">
+            <span className="text-sm bg-[#050505]/50 text-[#999999] px-2.5 py-1 rounded-lg border border-white/5 font-mono">
               النشطة حالياً: {activeSignals.length}
             </span>
             {onToggleHide && (
               <button
                 onClick={onToggleHide}
-                className="flex items-center gap-1 text-xs text-slate-400 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 transition-colors cursor-pointer"
+                className="flex items-center gap-1 text-sm text-slate-400 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 transition-colors cursor-pointer"
                 title="إخفاء هذا المربع لتبسيط الموقع"
                 id="btn-hide-signals-box"
               >
@@ -63,12 +63,12 @@ export default function SignalsFeed({
         {/* Filter Pills */}
         {filterOptions.length > 0 && activeSignals.length > 0 && (
           <div className="flex items-center gap-1.5 overflow-x-auto pb-2.5 mb-2 scrollbar-none">
-            <span className="text-[10px] text-[#999999] ml-1 flex items-center gap-1 flex-shrink-0">
+            <span className="text-sm text-[#999999] ml-1 flex items-center gap-1 flex-shrink-0">
               <Filter className="w-3 h-3 text-bento-green" /> فلترة الإشارات:
             </span>
             <button
               onClick={() => setFilterAssetId("all")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer flex-shrink-0 ${
+              className={`px-2.5 py-1 rounded-lg text-sm font-bold transition-all whitespace-nowrap cursor-pointer flex-shrink-0 ${
                 filterAssetId === "all"
                   ? "bg-bento-green text-[#050505] shadow-md shadow-bento-green/20"
                   : "bg-[#050505] border border-white/10 text-slate-300 hover:border-white/20 hover:text-white"
@@ -80,7 +80,7 @@ export default function SignalsFeed({
               <button
                 key={opt.id}
                 onClick={() => setFilterAssetId(opt.id)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer flex-shrink-0 ${
+                className={`px-2.5 py-1 rounded-lg text-sm font-bold transition-all whitespace-nowrap cursor-pointer flex-shrink-0 ${
                   filterAssetId === opt.id
                     ? "bg-bento-green text-[#050505] shadow-md shadow-bento-green/20"
                     : "bg-[#050505] border border-white/10 text-slate-300 hover:border-white/20 hover:text-white"
@@ -95,7 +95,7 @@ export default function SignalsFeed({
         {activeSignals.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-6 text-slate-500 text-center">
             <Clock className="w-7 h-7 mb-2 text-slate-600" />
-            <p className="text-xs font-medium text-slate-400">لا توجد صفقات نشطة حالياً.</p>
+            <p className="text-sm font-medium text-slate-400">لا توجد صفقات نشطة حالياً.</p>
             <p className="text-[11px] text-[#888888] mt-0.5 max-w-sm">
               قم بتشغيل البوت التلقائي من لوحة التحكم لإصدار إشارات فورية وفق الاستراتيجية الأوروبية.
             </p>
@@ -140,10 +140,10 @@ export default function SignalsFeed({
                   <div className="flex justify-between items-start mb-2">
                     <div>
                       <div className="flex items-center gap-1.5 font-sans">
-                        <span className="font-bold text-slate-200 text-xs md:text-sm">
+                        <span className="font-bold text-slate-200 text-sm md:text-base">
                           {signal.assetNameAr}
                         </span>
-                        <span className="text-[10px] bg-[#050505] text-[#999999] px-1.5 py-0.5 rounded border border-white/5 font-semibold font-mono">
+                        <span className="text-sm bg-[#050505] text-[#999999] px-1.5 py-0.5 rounded border border-white/5 font-semibold font-mono">
                           {signal.timeframe}
                         </span>
                         {platformName && (
@@ -162,14 +162,14 @@ export default function SignalsFeed({
                           </span>
                         )}
                       </div>
-                      <span className="text-[10px] text-[#999999] block mt-0.5">
+                      <span className="text-sm text-[#999999] block mt-0.5">
                         دخول @ {signal.timestamp}
                       </span>
                     </div>
 
                     <div className="text-left">
                       <span
-                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-extrabold ${
+                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-sm font-extrabold ${
                           isCall
                             ? "bg-bento-green/10 text-bento-green"
                             : "bg-bento-red/10 text-bento-red"
@@ -196,20 +196,20 @@ export default function SignalsFeed({
                   </div>
 
                   {/* Signal Stats Detail */}
-                  <div className="grid grid-cols-3 gap-2 bg-[#050505]/40 p-2 rounded-lg my-2 text-center text-xs border border-white/5">
+                  <div className="grid grid-cols-3 gap-2 bg-[#050505]/40 p-2 rounded-lg my-2 text-center text-sm border border-white/5">
                     <div>
-                      <span className="text-[10px] text-[#999999] block">سعر الدخول</span>
+                      <span className="text-sm text-[#999999] block">سعر الدخول</span>
                       <span className="font-mono font-bold text-slate-300">{signal.entryPrice}</span>
                     </div>
                     <div>
-                      <span className="text-[10px] text-[#999999] block">توافق أوروبي</span>
+                      <span className="text-sm text-[#999999] block">توافق أوروبي</span>
                       <span className={`font-bold font-mono text-lg md:text-xl ${isVip ? "text-amber-400 flex items-center justify-center gap-0.5" : "text-bento-green"}`}>
                         {isVip && <Sparkles className="w-4 h-4 text-amber-400" />}
                         {signal.strength}%
                       </span>
                     </div>
                     <div>
-                      <span className="text-[10px] text-[#999999] block">المتبقي</span>
+                      <span className="text-sm text-[#999999] block">المتبقي</span>
                       <span className="font-mono font-bold text-amber-400 animate-pulse">
                         {signal.secondsRemaining} ث
                       </span>
@@ -242,7 +242,7 @@ export default function SignalsFeed({
             </div>
             <button
               onClick={onClearHistory}
-              className="text-xs text-bento-red hover:text-bento-red/80 font-bold cursor-pointer"
+              className="text-sm text-bento-red hover:text-bento-red/80 font-bold cursor-pointer"
               id="btn-clear-history"
             >
               مسح السجل
@@ -250,7 +250,7 @@ export default function SignalsFeed({
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-right text-xs" id="history-table">
+            <table className="w-full text-right text-sm" id="history-table">
               <thead>
                 <tr className="border-b border-white/10 text-[#999999] pb-2">
                   <th className="pb-2 font-medium">الأصل</th>
@@ -288,7 +288,7 @@ export default function SignalsFeed({
                       </td>
                       <td className="py-2.5 text-left">
                         <span
-                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-extrabold ${
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm font-extrabold ${
                             isWin ? "bg-bento-green/10 text-bento-green" : "bg-bento-red/10 text-bento-red"
                           }`}
                         >
@@ -309,7 +309,7 @@ export default function SignalsFeed({
               </tbody>
             </table>
             {filteredHistory.length > 10 && (
-              <p className="text-[10px] text-[#999999] text-center mt-3">
+              <p className="text-sm text-[#999999] text-center mt-3">
                 يتم عرض آخر 10 صفقات منتهية فقط للحفاظ على أداء المنصة.
               </p>
             )}

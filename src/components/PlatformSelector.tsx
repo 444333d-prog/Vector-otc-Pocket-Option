@@ -116,7 +116,7 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
       {/* Toast Alert on Switch */}
       {statusMessage && (
         <div className="absolute top-full mt-2 left-0 right-0 sm:right-auto z-50 animate-bounce">
-          <div className="bg-[#101726] border border-bento-green/40 shadow-xl rounded-xl px-3 py-2 text-xs flex items-center gap-2 text-bento-green whitespace-nowrap">
+          <div className="bg-[#101726] border border-bento-green/40 shadow-xl rounded-xl px-3 py-2 text-sm flex items-center gap-2 text-bento-green whitespace-nowrap">
             <span className="w-2 h-2 rounded-full bg-bento-green animate-ping"></span>
             <ShieldCheck className="w-4 h-4" />
             <span>{statusMessage}</span>
@@ -130,7 +130,7 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
           onClick={() => setIsOpen(!isOpen)}
           className="group flex items-center gap-2.5 px-3 py-1.5 rounded-xl border border-white/10 bg-[#0c101c]/90 hover:bg-[#131b2e] hover:border-white/20 transition-all duration-200 cursor-pointer shadow-lg"
           id="btn-platform-selector-trigger"
-          title="انقر لتغيير منصة التداول المتصلة (محاكاة وهمية)"
+          title="انقر لتغيير منصة التداول"
         >
           {/* Live indicator dot */}
           <div className="relative flex items-center justify-center">
@@ -141,8 +141,8 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
           {/* Platform Label */}
           <div className="text-right flex flex-col">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] text-slate-400 font-medium">المنصة المختارة:</span>
-              <span className="text-xs font-black text-white group-hover:text-cyan-400 transition-colors">
+              <span className="text-sm text-slate-400 font-medium">المنصة المختارة:</span>
+              <span className="text-sm font-black text-white group-hover:text-cyan-400 transition-colors">
                 {currentPlatform.nameEn}
               </span>
             </div>
@@ -150,10 +150,10 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
 
           {/* Ping and Payout Badges */}
           <div className="hidden md:flex items-center gap-1.5 mr-1 border-r border-white/10 pr-2">
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-emerald-400 font-mono font-bold">
+            <span className="text-sm px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-emerald-400 font-mono font-bold">
               عائد {currentPlatform.payoutRate}%
             </span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-300 font-mono flex items-center gap-1">
+            <span className="text-sm px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-300 font-mono flex items-center gap-1">
               <Wifi className="w-2.5 h-2.5 text-cyan-400" />
               {ping}ms
             </span>
@@ -174,9 +174,9 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
             <div className="px-3 py-2 border-b border-white/10 flex items-center justify-between mb-1.5">
               <div className="flex items-center gap-1.5">
                 <Globe className="w-4 h-4 text-cyan-400" />
-                <span className="text-xs font-bold text-white">اختر منصة التداول (محاكاة وهمية)</span>
+                <span className="text-sm font-bold text-white">اختر منصة التداول (محاكاة وهمية)</span>
               </div>
-              <span className="text-[10px] bg-white/10 text-slate-300 px-2 py-0.5 rounded-full font-mono">
+              <span className="text-sm bg-white/10 text-slate-300 px-2 py-0.5 rounded-full font-mono">
                 5 منصات
               </span>
             </div>
@@ -202,21 +202,21 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
                       <div
-                        className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs bg-gradient-to-br shadow-inner border border-white/10 ${platform.logoColor}`}
+                        className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm bg-gradient-to-br shadow-inner border border-white/10 ${platform.logoColor}`}
                       >
                         <Zap className="w-4 h-4" />
                       </div>
 
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-xs font-bold text-white truncate">
+                          <span className="text-sm font-bold text-white truncate">
                             {platform.nameAr}
                           </span>
                           <span className="text-[9px] px-1.5 py-0.2 rounded bg-white/10 text-slate-300 font-sans border border-white/10">
                             {platform.tag}
                           </span>
                         </div>
-                        <p className="text-[10px] text-slate-400 truncate mt-0.5">
+                        <p className="text-sm text-slate-400 truncate mt-0.5">
                           {platform.description}
                         </p>
                       </div>
@@ -241,7 +241,7 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
               })}
             </div>
 
-            <div className="mt-2.5 pt-2 border-t border-white/10 px-2 flex items-center justify-between text-[10px] text-slate-400">
+            <div className="mt-2.5 pt-2 border-t border-white/10 px-2 flex items-center justify-between text-sm text-slate-400">
               <span className="flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                 خوادم متصلة بالكامل (Simulation Mode)
