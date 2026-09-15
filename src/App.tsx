@@ -5,6 +5,9 @@ import SignalsFeed from "./components/SignalsFeed";
 import SignalsStats from "./components/SignalsStats";
 import EuropeanStrategyGuide from "./components/EuropeanStrategyGuide";
 import { AnalyticsDashboard } from "./components/AnalyticsDashboard";
+import { PlatformSelector, TRADING_PLATFORMS } from "./components/PlatformSelector";
+import { TradingPlatform } from "./types";
+import vectorLogo from "./assets/images/vector_otc_logo_1789462402811.jpg";
 import {
   TrendingUp,
   TrendingDown,
@@ -35,19 +38,103 @@ import {
   Activity,
   LineChart,
   Coins,
+  Droplet,
 } from "lucide-react";
 
 // Predefined available assets (Forex, OTC & Commodities)
 const AVAILABLE_ASSETS: Asset[] = [
+  // --- Pairs requested from Pocket Option OTC list ---
   {
-    id: "eur_usd",
-    nameAr: "EUR/USD",
-    nameEn: "EUR/USD",
-    currentPrice: 1.0845,
-    category: "forex",
-    decimalDigits: 5,
-    volatilityRate: 0.0003,
+    id: "american_express_otc",
+    nameAr: "American Express OTC",
+    nameEn: "American Express OTC",
+    currentPrice: 241.80,
+    category: "otc",
+    decimalDigits: 2,
+    volatilityRate: 0.65,
   },
+  {
+    id: "aud_chf_otc",
+    nameAr: "AUD/CHF OTC",
+    nameEn: "AUD/CHF OTC",
+    currentPrice: 0.58240,
+    category: "otc",
+    decimalDigits: 5,
+    volatilityRate: 0.00045,
+  },
+  {
+    id: "usd_idr_otc",
+    nameAr: "USD/IDR OTC",
+    nameEn: "USD/IDR OTC",
+    currentPrice: 15420.0,
+    category: "otc",
+    decimalDigits: 1,
+    volatilityRate: 8.5,
+  },
+  {
+    id: "intel_otc",
+    nameAr: "Intel OTC",
+    nameEn: "Intel OTC",
+    currentPrice: 21.45,
+    category: "otc",
+    decimalDigits: 2,
+    volatilityRate: 0.25,
+  },
+  {
+    id: "aed_cny_otc",
+    nameAr: "AED/CNY OTC",
+    nameEn: "AED/CNY OTC",
+    currentPrice: 1.9542,
+    category: "otc",
+    decimalDigits: 4,
+    volatilityRate: 0.0009,
+  },
+  {
+    id: "brent_oil_otc",
+    nameAr: "Brent Oil OTC",
+    nameEn: "Brent Oil OTC",
+    currentPrice: 74.35,
+    category: "commodities",
+    decimalDigits: 2,
+    volatilityRate: 0.45,
+  },
+  {
+    id: "wti_oil_otc",
+    nameAr: "WTI Crude Oil OTC",
+    nameEn: "WTI Crude Oil OTC",
+    currentPrice: 70.80,
+    category: "commodities",
+    decimalDigits: 2,
+    volatilityRate: 0.45,
+  },
+  {
+    id: "silver_otc",
+    nameAr: "Silver OTC",
+    nameEn: "Silver OTC",
+    currentPrice: 28.650,
+    category: "commodities",
+    decimalDigits: 3,
+    volatilityRate: 0.08,
+  },
+  {
+    id: "gold_otc",
+    nameAr: "Gold OTC",
+    nameEn: "Gold / USD OTC",
+    currentPrice: 2385.50,
+    category: "commodities",
+    decimalDigits: 2,
+    volatilityRate: 1.8,
+  },
+  {
+    id: "amazon_otc",
+    nameAr: "Amazon OTC",
+    nameEn: "Amazon OTC",
+    currentPrice: 185.40,
+    category: "otc",
+    decimalDigits: 2,
+    volatilityRate: 0.65,
+  },
+  // --- Additional OTC & Forex Market Pairs ---
   {
     id: "gbp_usd",
     nameAr: "GBP/USD",
@@ -56,15 +143,6 @@ const AVAILABLE_ASSETS: Asset[] = [
     category: "forex",
     decimalDigits: 5,
     volatilityRate: 0.0004,
-  },
-  {
-    id: "gold_otc",
-    nameAr: "GOLD OTC",
-    nameEn: "Gold / USD OTC",
-    currentPrice: 2385.50,
-    category: "otc",
-    decimalDigits: 2,
-    volatilityRate: 1.8,
   },
   {
     id: "eur_usd_otc",
@@ -139,33 +217,6 @@ const AVAILABLE_ASSETS: Asset[] = [
     volatilityRate: 0.0003,
   },
   {
-    id: "usd_odr_otc",
-    nameAr: "USDODR OTC",
-    nameEn: "USD/ODR OTC",
-    currentPrice: 1.0000,
-    category: "otc",
-    decimalDigits: 5,
-    volatilityRate: 0.0005,
-  },
-  {
-    id: "aud_usd_otc",
-    nameAr: "AUDUSD OTC",
-    nameEn: "AUD/USD OTC",
-    currentPrice: 0.6500,
-    category: "otc",
-    decimalDigits: 5,
-    volatilityRate: 0.0004,
-  },
-  {
-    id: "usd_php_otc",
-    nameAr: "USDPHP OTC",
-    nameEn: "USD/PHP OTC",
-    currentPrice: 56.50,
-    category: "otc",
-    decimalDigits: 2,
-    volatilityRate: 0.05,
-  },
-  {
     id: "apple_otc",
     nameAr: "AAPL OTC",
     nameEn: "Apple OTC",
@@ -184,15 +235,6 @@ const AVAILABLE_ASSETS: Asset[] = [
     volatilityRate: 0.85,
   },
   {
-    id: "amazon_otc",
-    nameAr: "AMZN OTC",
-    nameEn: "Amazon OTC",
-    currentPrice: 185.40,
-    category: "otc",
-    decimalDigits: 2,
-    volatilityRate: 0.65,
-  },
-  {
     id: "boeing_otc",
     nameAr: "BA OTC",
     nameEn: "Boeing Company OTC",
@@ -200,15 +242,6 @@ const AVAILABLE_ASSETS: Asset[] = [
     category: "otc",
     decimalDigits: 2,
     volatilityRate: 0.70,
-  },
-  {
-    id: "aed_cny_otc",
-    nameAr: "AEDCNY OTC",
-    nameEn: "AED/CNY OTC",
-    currentPrice: 1.9540,
-    category: "otc",
-    decimalDigits: 4,
-    volatilityRate: 0.001,
   },
   {
     id: "bhd_cny_otc",
@@ -236,14 +269,14 @@ function createInitialPrices(asset: Asset): number[] {
 export default function App() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // State: Multiple Selected Assets (Defaults to 2 pairs as requested)
+  // State: Multiple Selected Assets (Defaults to 2 pairs from Pocket Option OTC list)
   const [selectedAssets, setSelectedAssets] = useState<Asset[]>([
-    AVAILABLE_ASSETS[2], // Gold OTC
-    AVAILABLE_ASSETS[3], // EURUSD OTC
+    AVAILABLE_ASSETS[0], // American Express OTC
+    AVAILABLE_ASSETS[8], // Gold OTC
   ]);
 
   // Active focused asset for single view tab
-  const [activeFocusedAssetId, setActiveFocusedAssetId] = useState<string>(AVAILABLE_ASSETS[2].id);
+  const [activeFocusedAssetId, setActiveFocusedAssetId] = useState<string>(AVAILABLE_ASSETS[0].id);
 
   // Chart layout mode: "grid" (Multi-Chart) vs "single" (Tabbed View)
   const [chartLayout, setChartLayout] = useState<"grid" | "single">("grid");
@@ -278,6 +311,17 @@ export default function App() {
   const [telegramToken, setTelegramToken] = useState<string>(() => localStorage.getItem("telegram_token") || "");
   const [telegramChatId, setTelegramChatId] = useState<string>(() => localStorage.getItem("telegram_chat_id") || "");
   const [telegramEnabled, setTelegramEnabled] = useState<boolean>(() => localStorage.getItem("telegram_enabled") === "true");
+
+  // Selected Simulated Trading Platform
+  const [currentPlatform, setCurrentPlatform] = useState<TradingPlatform>(() => {
+    const savedId = localStorage.getItem("selected_trading_platform");
+    return TRADING_PLATFORMS.find((p) => p.id === savedId) || TRADING_PLATFORMS[0];
+  });
+
+  const handleSelectPlatform = (platform: TradingPlatform) => {
+    setCurrentPlatform(platform);
+    localStorage.setItem("selected_trading_platform", platform.id);
+  };
 
   // AI Deep Scan state by asset ID
   const [aiAnalyses, setAiAnalyses] = useState<Record<string, AIAnalysis>>({});
@@ -324,6 +368,9 @@ export default function App() {
 
   const telegramEnabledRef = useRef<boolean>(telegramEnabled);
   telegramEnabledRef.current = telegramEnabled;
+
+  const currentPlatformRef = useRef<TradingPlatform>(currentPlatform);
+  currentPlatformRef.current = currentPlatform;
 
   useEffect(() => {
     localStorage.setItem("telegram_token", telegramToken);
@@ -586,16 +633,18 @@ export default function App() {
       newSignals.forEach((newSignal) => {
         const isVip = newSignal.strength >= 95;
         const actionEmoji = newSignal.recommendation === "أعلى" ? "🟢 CALL (أعلى)" : "🔴 PUT (أدنى)";
+        const platformTitle = currentPlatformRef.current.nameEn.toUpperCase();
         const message =
-          `${isVip ? "🌟 *POCKET OPTION EUROPEAN STRATEGY (VIP 95%+)* 🌟" : "⚡ *POCKET OPTION EUROPEAN SIGNAL* ⚡"}\n\n` +
+          `${isVip ? `🌟 *${platformTitle} EUROPEAN STRATEGY (VIP 95%+)* 🌟` : `⚡ *${platformTitle} EUROPEAN SIGNAL* ⚡`}\n\n` +
           `📊 *الزوج:* ${newSignal.assetNameAr} (${newSignal.assetNameEn})\n` +
+          `🏢 *المنصة:* ${currentPlatformRef.current.nameAr}\n` +
           `⏱ *الفريم الزمني:* ${newSignal.timeframe}\n` +
           `🎯 *القرار:* ${actionEmoji}\n` +
           `💲 *سعر الدخول:* ${newSignal.entryPrice}\n` +
           `🔥 *نسبة التوافق الأوروبي:* ${newSignal.strength}% ${isVip ? "⭐ (Triple Confluence Confirmed)" : ""}\n` +
           `📈 *المؤشرات:* EMA (8/21/55) • Stochastic (5/3/3) • Bollinger (20,2)\n` +
           `🕒 *وقت الدخول:* ${newSignal.timestamp}\n\n` +
-          `_Generated by Pocket Option & Deriv European Strategy Bot_`;
+          `_Generated by ${currentPlatformRef.current.nameEn} European Strategy Bot_`;
 
         fetch(`https://api.telegram.org/bot${telegramTokenRef.current}/sendMessage`, {
           method: "POST",
@@ -739,23 +788,37 @@ export default function App() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
           {/* Logo & Brand */}
           <div className="flex items-center space-x-3 space-x-reverse">
-            <div className="relative flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-tr from-[#0088FF] via-[#00E676] to-[#FF3366] shadow-lg shadow-[#0088FF]/30 tri-aurora-glow overflow-hidden">
-              <img src="/IMG_9122.jpeg" alt="Vector OTC Logo" className="w-full h-full object-cover rounded-xl relative z-10" onError={(e) => { e.currentTarget.src = 'https://placehold.co/100x100/0088FF/FFFFFF?text=Vector+OTC' }} />
-              <div className="absolute -inset-0.5 bg-gradient-to-tr from-[#0088FF] via-[#00E676] to-[#FF3366] rounded-xl blur opacity-40 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+            <div className="relative flex items-center justify-center w-12 h-12 rounded-xl bg-[#090D1A] border border-cyan-500/30 shadow-lg shadow-cyan-500/20 overflow-hidden group">
+              <img
+                src={vectorLogo}
+                alt="Vector OTC Logo"
+                className="w-full h-full object-cover rounded-xl relative z-10 transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute -inset-0.5 bg-gradient-to-tr from-[#0088FF] via-[#00E676] to-[#FF3366] rounded-xl blur opacity-30 group-hover:opacity-75 transition duration-500"></div>
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="font-extrabold text-white text-sm md:text-base tracking-tight">Vector_otc الاستراتيجية الأوروبية • Pocket Option</h1>
+                <h1 className="font-extrabold text-white text-sm md:text-base tracking-tight">
+                  Vector_OTC Options
+                </h1>
                 <span className="text-[10px] bg-gradient-to-r from-[#0088FF]/25 via-[#00E676]/25 to-[#FF3366]/25 text-white border border-white/20 px-2.5 py-0.5 rounded font-black uppercase tracking-wider shadow-sm">
                   TRI-COLOR FUSION
                 </span>
               </div>
-              <p className="text-[10px] text-slate-400 mt-0.5">استراتيجية التوافق الثلاثي (EMA 8/21/55 + Stochastic + BB) لخيارات بوكت اوبشن وDeriv</p>
+              <p className="text-[10px] text-slate-400 mt-0.5">
+                خوارزمية متقدمة تتعقب النماذج السعرية، وتحلّق في عمق بيانات أسواق الـ OTC (غير الرسمية)
+              </p>
             </div>
           </div>
 
-          {/* Quick HUD status info & Mute toggle */}
+          {/* Quick HUD status info & Platform Selector */}
           <div className="flex items-center space-x-3 space-x-reverse flex-wrap gap-2 sm:gap-0">
+            {/* Trading Platform Mock Selector */}
+            <PlatformSelector
+              currentPlatform={currentPlatform}
+              onSelectPlatform={handleSelectPlatform}
+            />
+
             {/* European Strategy Guide Button */}
             <button
               onClick={() => setIsStrategyGuideOpen(true)}
@@ -796,6 +859,39 @@ export default function App() {
 
       {/* Main Container Area */}
       <main className="flex-grow max-w-7xl w-full mx-auto p-4 space-y-4">
+        {/* Mock Trading Platform Switcher Bar */}
+        <div className="bg-bento-card border border-white/10 rounded-2xl p-3 sm:p-4 shadow-xl flex flex-col md:flex-row items-center justify-between gap-3 relative overflow-hidden" id="platform-quick-selector">
+          <div className="flex items-center gap-2.5 w-full md:w-auto justify-between md:justify-start">
+            <div className="flex items-center gap-2">
+              <div className="w-2.5 h-2.5 rounded-full bg-bento-green animate-pulse"></div>
+              <span className="text-xs font-bold text-slate-200">منصة التداول المتصلة (محاكاة وهمية):</span>
+            </div>
+            <span className="text-[10px] bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 px-2 py-0.5 rounded-md font-mono font-bold">
+              عائد {currentPlatform.payoutRate}%
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0">
+            {TRADING_PLATFORMS.map((plat) => {
+              const isSelected = plat.id === currentPlatform.id;
+              return (
+                <button
+                  key={plat.id}
+                  onClick={() => handleSelectPlatform(plat)}
+                  className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer active:scale-95 ${
+                    isSelected
+                      ? "bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow-md shadow-cyan-500/20"
+                      : "bg-[#060913] border-white/10 text-slate-400 hover:text-slate-200 hover:border-white/25 hover:bg-white/5"
+                  }`}
+                >
+                  <span className={`w-2 h-2 rounded-full ${isSelected ? "bg-cyan-400 animate-ping" : "bg-white/20"}`}></span>
+                  <span>{plat.nameAr}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Signals Feed Panel - Only rendered when showSignalsAndIndicators is true */}
         {showSignalsAndIndicators && (
           <SignalsFeed
@@ -803,6 +899,7 @@ export default function App() {
             completedHistory={completedHistory}
             onClearHistory={() => setCompletedHistory([])}
             selectedAssets={selectedAssets}
+            platformName={currentPlatform.nameAr}
           />
         )}
 
@@ -824,15 +921,25 @@ export default function App() {
               let AssetIcon = Activity;
               let iconColor = "text-bento-green";
               
-              if (asset.category === "forex") {
-                AssetIcon = TrendingUp;
-                iconColor = "text-blue-400";
-              } else if (asset.id.includes("apple") || asset.id.includes("tesla") || asset.id.includes("amazon") || asset.id.includes("boeing")) {
-                AssetIcon = LineChart;
-                iconColor = "text-purple-400";
-              } else if (asset.category === "commodities" || asset.id.includes("gold")) {
+              if (asset.id.includes("oil") || asset.id.includes("brent") || asset.id.includes("wti")) {
+                AssetIcon = Droplet;
+                iconColor = "text-cyan-400";
+              } else if (asset.id.includes("gold") || asset.id.includes("silver") || asset.category === "commodities") {
                 AssetIcon = Coins;
                 iconColor = "text-amber-400";
+              } else if (
+                asset.id.includes("express") ||
+                asset.id.includes("intel") ||
+                asset.id.includes("amazon") ||
+                asset.id.includes("apple") ||
+                asset.id.includes("tesla") ||
+                asset.id.includes("boeing")
+              ) {
+                AssetIcon = LineChart;
+                iconColor = "text-purple-400";
+              } else {
+                AssetIcon = TrendingUp;
+                iconColor = "text-blue-400";
               }
 
               return (

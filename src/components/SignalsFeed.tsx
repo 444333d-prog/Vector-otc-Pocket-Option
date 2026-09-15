@@ -9,6 +9,7 @@ interface SignalsFeedProps {
   onClearHistory: () => void;
   selectedAssets?: { id: string; nameAr: string }[];
   onToggleHide?: () => void;
+  platformName?: string;
 }
 
 export default function SignalsFeed({
@@ -17,6 +18,7 @@ export default function SignalsFeed({
   onClearHistory,
   selectedAssets,
   onToggleHide,
+  platformName,
 }: SignalsFeedProps) {
   const [filterAssetId, setFilterAssetId] = useState<string>("all");
 
@@ -144,6 +146,11 @@ export default function SignalsFeed({
                         <span className="text-[10px] bg-[#050505] text-[#999999] px-1.5 py-0.5 rounded border border-white/5 font-semibold font-mono">
                           {signal.timeframe}
                         </span>
+                        {platformName && (
+                          <span className="text-[9px] bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 px-1.5 py-0.5 rounded font-medium">
+                            {platformName}
+                          </span>
+                        )}
                         {isVip ? (
                           <span className="inline-flex items-center gap-0.5 text-[9px] bg-amber-500/15 text-amber-300 border border-amber-500/30 px-1.5 py-0.5 rounded font-black">
                             <Sparkles className="w-2.5 h-2.5 text-amber-400" />

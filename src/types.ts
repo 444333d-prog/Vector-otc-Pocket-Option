@@ -60,3 +60,18 @@ export interface EuropeanStrategyRule {
   putRule: string;
   status: "active" | "neutral";
 }
+
+export type PlatformId = "pocket_option" | "quotex" | "olymp_trade" | "expert_option" | "deriv";
+
+export interface TradingPlatform {
+  id: PlatformId;
+  nameAr: string;
+  nameEn: string;
+  logoColor: string;
+  badgeBg: string;
+  accentBorder: string;
+  payoutRate: number;
+  defaultPing: number;
+  tag: string;
+  description: string;
+}
